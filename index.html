@@ -8,11 +8,12 @@
     <style>
         :root {
             --bg-dark: #05080a;
-            --bg-glass: rgba(17, 25, 40, 0.75);
+            --bg-glass: rgba(17, 25, 40, 0.85);
             --primary-blue: #00d4ff;
             --secondary-blue: #0077ff;
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
+            --accent-glow: rgba(0, 212, 255, 0.15);
         }
 
         * {
@@ -21,29 +22,29 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
             margin: 0;
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
-        /* Animated Grid Background */
+        /* Technical Grid Background */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: -1;
         }
 
         header {
-            height: 100vh;
+            height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -52,167 +53,215 @@
             padding: 0 20px;
         }
 
-        .name-scan {
-            font-size: clamp(2.5rem, 8vw, 4rem);
+        .name-header {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
             font-weight: 800;
             color: var(--primary-blue);
             text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px var(--accent-glow);
         }
 
-        /* Glowing text effect */
-        .name-scan {
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-        }
-
-        .role {
-            font-size: 1.2rem;
+        .role-tag {
+            font-size: 1.1rem;
             color: var(--text-dim);
-            font-weight: 300;
-            border-right: 2px solid var(--primary-blue);
-            padding-right: 5px;
-            animation: blink 1s infinite;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
         }
-
-        @keyframes blink { 50% { border-color: transparent; } }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 40px 20px;
         }
 
         h2 {
-            font-size: 1.8rem;
-            margin-bottom: 40px;
+            font-size: 1.5rem;
             color: var(--primary-blue);
+            margin-top: 60px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2::before {
+            content: "> ";
+            margin-right: 10px;
+            opacity: 0.5;
         }
 
         h2::after {
             content: "";
             height: 1px;
             flex-grow: 1;
-            background: linear-gradient(90deg, var(--primary-blue), transparent);
+            background: linear-gradient(90deg, var(--secondary-blue), transparent);
             margin-left: 20px;
         }
 
-        /* Glassmorphism Cards */
+        /* Glass Cards */
         .card {
             background: var(--bg-glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 35px;
             border-radius: 12px;
-            margin-bottom: 40px;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
         }
 
         .card:hover {
             border-color: var(--primary-blue);
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-3px);
         }
 
-        .project-grid {
+        .grid-layout {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+        }
+
+        /* Tags & Highlights */
+        .highlight { color: var(--primary-blue); font-weight: 600; }
+
+        .tag {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--primary-blue);
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-right: 10px;
+            margin-top: 10px;
         }
 
         .btn {
             background: transparent;
             color: var(--primary-blue);
             border: 1px solid var(--primary-blue);
-            padding: 12px 24px;
+            padding: 12px 28px;
             border-radius: 4px;
             text-decoration: none;
             font-weight: 600;
             transition: 0.3s;
-            margin: 10px;
             display: inline-block;
+            margin: 10px;
         }
 
         .btn:hover {
-            background: rgba(0, 212, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            background: var(--primary-blue);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--primary-blue);
         }
 
-        .skill-tag {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            background: rgba(0, 212, 255, 0.1);
+        ul { list-style: none; padding: 0; }
+        ul li::before {
+            content: "▹";
             color: var(--primary-blue);
-            font-size: 0.85rem;
-            margin: 5px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            margin-right: 10px;
         }
 
         footer {
             text-align: center;
-            padding: 60px;
-            opacity: 0.6;
-            font-size: 0.9rem;
+            padding: 80px 20px;
+            opacity: 0.5;
+            font-size: 0.85rem;
         }
+
     </style>
 </head>
 <body>
 
     <header>
-        <div class="name-scan">Muhammed Sadin</div>
-        <div class="role">Cybersecurity Researcher | BCA Student</div>
-        <div style="margin-top: 40px;">
-            <a href="#about" class="btn">View Profile</a>
-            <a href="https://github.com/sadinalungal" class="btn">GitHub</a>
+        <div class="name-header">Muhammed Sadin</div>
+        <div class="role-tag">Cybersecurity Researcher</div>
+        <div>
+            <a href="https://github.com/sadinalungal" target="_blank" class="btn"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://www.linkedin.com/in/muhammed-sadin-062401375" target="_blank" class="btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
         </div>
     </header>
 
     <div class="container">
         
         <section id="about">
-            <h2>01. Background</h2>
+            <h2>01. Profile</h2>
             <div class="card">
-                <p>Focusing on the intersection of <strong>Network Defense</strong> and <strong>Linux Security</strong>. I am currently pursuing my BCA while conducting independent research into vulnerability assessment and tool development. I specialize in navigating complex Linux environments to analyze and secure digital assets.</p>
+                <p>Focused and disciplined <span class="highlight">Cybersecurity Researcher</span> with practical exposure to penetration testing, vulnerability assessment, and network security. Experienced in using industry tools and platforms to identify system weaknesses and simulate real-world attack scenarios.</p>
+                <p>I maintain a strong interest in ethical hacking and continuous skill development, aiming to contribute as a high-level cybersecurity analyst.</p>
             </div>
         </section>
 
-        <section id="projects">
-            <h2>02. Security Tools</h2>
-            <div class="project-grid">
+        <section id="experience">
+            <h2>02. Experience</h2>
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <h3>Cybersecurity Student Trainee</h3>
+                    <span class="highlight">Current</span>
+                </div>
+                <p><strong>Offenso Hacker Academy</strong></p>
+                <ul>
+                    <li>Actively simulating real-world attack scenarios for research purposes.</li>
+                    <li>Conducting vulnerability assessments on lab-controlled systems.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="specialization">
+            <h2>03. Specializations</h2>
+            <div class="grid-layout">
                 <div class="card">
-                    <h3>Port Scanner V1</h3>
-                    <p>A custom reconnaissance tool built to identify network vulnerabilities through efficient service discovery.</p>
-                    <div class="skill-tag">Python</div>
-                    <div class="skill-tag">Networking</div>
-                    <div class="skill-tag">Linux</div>
+                    <h3>Penetration Testing</h3>
+                    <p>Simulating authorized cyberattacks to evaluate security posture.</p>
                 </div>
                 <div class="card">
-                    <h3>Linux Research</h3>
-                    <p>Documenting system hardening techniques and bash automation for secure server deployments.</p>
-                    <div class="skill-tag">Bash</div>
-                    <div class="skill-tag">Security</div>
+                    <h3>Network Scanning</h3>
+                    <p>Detailed enumeration and scanning techniques to map target surfaces.</p>
                 </div>
+                <div class="card">
+                    <h3>SOC Analyst</h3>
+                    <p>Focused on threat detection, monitoring, and security operations center logic.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="technical">
+            <h2>04. Technical Skills</h2>
+            <div class="card">
+                <div class="tag">Linux Command Line</div>
+                <div class="tag">Network Security</div>
+                <div class="tag">Penetration Testing</div>
+                <div class="tag">Vulnerability Assessment</div>
+                <div class="tag">Security Tools</div>
+                <div class="tag">Ethical Hacking</div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>05. Education</h2>
+            <div class="card">
+                <p><span class="highlight">Bachelor of Computer Applications (BCA)</span><br>Currently Pursuing</p>
+                <p><span class="highlight">Advanced Diploma in Information Security</span><br>Offenso Hacker Academy</p>
             </div>
         </section>
 
         <section id="contact">
-            <h2>03. Get In Touch</h2>
+            <h2>06. Get In Touch</h2>
             <div class="card" style="text-align: center;">
-                <p>I am currently open to collaboration on security projects or research opportunities.</p>
-                <a href="mailto:sadinalungal@gmail.com" class="btn">sadinalungal@gmail.com</a>
+                <p>I am always looking to connect with fellow security enthusiasts and professionals.</p>
+                <a href="mailto:sadinalungal@gmail.com" class="btn">Send Email</a>
+                <p style="margin-top: 20px; color: var(--text-dim);">sadinalungal@gmail.com</p>
             </div>
         </section>
 
     </div>
 
     <footer>
-        Designed & Built by Muhammed Sadin &bull; 2026
+        &copy; 2026 Muhammed Sadin | Built for Security Research
     </footer>
 
 </body>
